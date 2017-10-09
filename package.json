@@ -1,0 +1,29 @@
+{
+  "name": "fullscreen",
+  "version": "1.0.0",
+  "description": "JavaScript Fullscreen API. Support different frames(documents)",
+  "main": "dist/index.js",
+  "types": "source/index.ts",
+  "scripts": {
+    "start": "tsc -w",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aqours/Fullscreen.git"
+  },
+  "keywords": [
+    "fullscreen",
+    "cross-browser",
+    "javascript"
+  ],
+  "author": "Aqours",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Aqours/Fullscreen/issues"
+  },
+  "homepage": "https://github.com/Aqours/Fullscreen#readme",
+  "devDependencies": {
+    "typescript": "^2.5.3"
+  }
+}
