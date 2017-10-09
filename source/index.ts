@@ -99,7 +99,7 @@ class Fullscreen {
                 break;
             }
         }
-        this.cfs = <FullscreenAPIMapping>this.cfs || null;
+        this.cfs = <FullscreenAPIMapping>this.fss[this.tab] || null;
     }
 
     get fullscreenEnabled(): boolean {

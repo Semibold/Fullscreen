@@ -1,5 +1,5 @@
 /**
- *
+ * @summary TypeScript Version
  */
 declare global  {
     interface Document {

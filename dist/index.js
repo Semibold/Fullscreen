@@ -66,7 +66,7 @@
                     break;
                 }
             }
-            this.cfs = this.cfs || null;
+            this.cfs = this.fss[this.tab] || null;
         };
         Object.defineProperty(Fullscreen.prototype, "fullscreenEnabled", {
             get: function () {
