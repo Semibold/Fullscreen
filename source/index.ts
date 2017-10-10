@@ -38,7 +38,7 @@ export interface FullscreenAPIMapping {
 export type FullscreenEventType = 'fullscreenchange' | 'fullscreenerror';
 
 
-class Fullscreen {
+export class Fullscreen {
 
     private ele: Element;
     private doc: Document;
@@ -194,6 +194,3 @@ class Fullscreen {
     }
 
 }
-
-
-export default Fullscreen;
