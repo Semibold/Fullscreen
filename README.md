@@ -9,6 +9,16 @@
 
 `$ npm install --save aqours-fullscreen`
 
+## Usage
+
+```js
+// CommonJS
+const { Fullscreen } = require('aqours-fullscreen');
+
+// ES Module
+import { Fullscreen } from 'aqours-fullscreen';
+```
+
 
 ## Support
 
