@@ -1,13 +1,13 @@
 # Fullscreen
 
-> JavaScript Fullscreen API. Support different frames(documents).
+> JavaScript Fullscreen API. Support different frames(documents). Just for browser.
 
 
 ## Install
 
 > Source code is written by TypeScript.
 
-`$ npm install --save https://github.com/Aqours/Fullscreen.git`
+`$ npm install --save aqours-fullscreen`
 
 
 ## Support

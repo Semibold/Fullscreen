@@ -1,6 +1,6 @@
 {
   "name": "aqours-fullscreen",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JavaScript Fullscreen API. Support different frames(documents)",
   "main": "dist/bundle.min.js",
   "types": "source/index.ts",
