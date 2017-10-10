@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>iframe</title>
     <style>
         html,
@@ -14,14 +15,13 @@
             background: url("http://wx3.sinaimg.cn/large/006G4xsfgy1fe40spuljaj33402c0qv5.jpg") no-repeat center;
             background-size: cover;
         }
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
         article {
             position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
             padding: 1em 1.5em;
+            transform: translate(-50%, -50%);
             background-color: rgba(255, 255, 255, 0.6);
         }
         article p {
@@ -38,7 +38,7 @@
         }
     </style>
 </head>
-<body>
+<body class="sub-frame-body">
 
 <article>
     <aside>
@@ -60,7 +60,7 @@
 
 <script src="dist/bundle.min.js"></script>
 <script>
-    var fs1 = new Fullscreen(top.document.documentElement); // Top frame
+    var fs1 = new Fullscreen(top.document.body); // Top frame
     var fs2 = new Fullscreen(document.body); // Sub frame(Current)
     var bs1 = document.querySelectorAll('#fs-top-frame > button');
     var bs2 = document.querySelectorAll('#fs-sub-frame > button');
