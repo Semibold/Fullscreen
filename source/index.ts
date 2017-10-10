@@ -35,6 +35,7 @@ export interface FullscreenAPIMapping {
     fullscreenchange: 'fullscreenchange' | 'webkitfullscreenchange' | 'mozfullscreenchange' | 'MSFullscreenChange';
     fullscreenerror: 'fullscreenerror' | 'webkitfullscreenerror' | 'mozfullscreenerror' | 'MSFullscreenError';
 }
+export type FullscreenEventType = 'fullscreenchange' | 'fullscreenerror';
 
 
 class Fullscreen {
@@ -86,9 +87,9 @@ class Fullscreen {
         }
     ];
 
-    constructor(ele: Element, doc: Document = document) {
-        this.ele = ele;
-        this.doc = doc;
+    constructor(ele?: Element) {
+        this.ele = ele || document.documentElement;
+        this.doc = this.ele.ownerDocument;
         this.checkoutFullscreen();
     }
 
@@ -154,7 +155,7 @@ class Fullscreen {
         }
     }
 
-    addEventListener(type: 'fullscreenchange' | 'fullscreenerror', listener: EventListenerOrEventListenerObject, useCapture?: boolean) {
+    addEventListener(type: FullscreenEventType, listener: EventListenerOrEventListenerObject, useCapture?: boolean) {
         if (type === 'fullscreenchange' || type === 'fullscreenerror') {
             if (this.cfs) {
                 this.doc.addEventListener(this.cfs[type], listener, useCapture);
@@ -162,12 +163,34 @@ class Fullscreen {
         }
     }
 
-    removeEventListener(type: 'fullscreenchange' | 'fullscreenerror', listener: EventListenerOrEventListenerObject, useCapture?: boolean) {
+    removeEventListener(type: FullscreenEventType, listener: EventListenerOrEventListenerObject, useCapture?: boolean) {
         if (type === 'fullscreenchange' || type === 'fullscreenerror') {
             if (this.cfs) {
                 this.doc.removeEventListener(this.cfs[type], listener, useCapture);
             }
         }
+    }
+
+    toggleFullscreen(forceExit?: boolean) {
+        if (forceExit) {
+            if (this.fullscreenElement === this.ele) {
+                this.exitFullscreen();
+            }
+        } else {
+            if (this.fullscreenElement === this.ele) {
+                this.exitFullscreen();
+            } else {
+                this.requestFullscreen();
+            }
+        }
+    }
+
+    get fullscreenMapping(): FullscreenAPIMapping | null {
+        return this.cfs;
+    }
+
+    get currentElement(): Element {
+        return this.ele;
     }
 
 }
