@@ -7,16 +7,19 @@
 
 > Source code is written by TypeScript.
 
-`$ npm install --save aqours-fullscreen`
+`$ npm install --save @aqours/fullscreen`
 
 ## Usage
 
 ```js
+// Script
+// <script src="./dist/bundle.min.js"></script>
+
 // CommonJS
-const { Fullscreen } = require('aqours-fullscreen');
+const { Fullscreen } = require('@aqours/fullscreen');
 
 // ES Module
-import { Fullscreen } from 'aqours-fullscreen';
+import { Fullscreen } from '@aqours/fullscreen';
 ```
 
 
