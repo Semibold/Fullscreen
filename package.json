@@ -2,7 +2,7 @@
   "name": "fullscreen",
   "version": "1.0.0",
   "description": "JavaScript Fullscreen API. Support different frames(documents)",
-  "main": "dist/index.js",
+  "main": "dist/bundle.min.js",
   "types": "source/index.ts",
   "scripts": {
     "start": "webpack -wd",
