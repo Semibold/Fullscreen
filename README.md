@@ -7,7 +7,7 @@
 
 > Source code is written by TypeScript.
 
-`$ npm install --save git@github.com:Aqours/Fullscreen.git`
+`$ npm install --save https://github.com/Aqours/Fullscreen.git`
 
 
 ## Support
