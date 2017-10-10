@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": false,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "strictNullChecks": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "dom",
+      "es5",
+      "es6",
+      "scripthost",
+      "es2015"
+    ]
+  },
+  "include": [
+    "./**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "fullscreen",
+  "version": "1.0.0",
+  "description": "JavaScript Fullscreen API. Support different frames(documents)",
+  "main": "dist/bundle.min.js",
+  "types": "source/index.ts",
+  "scripts": {
+    "start": "webpack -wd",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aqours/Fullscreen.git"
+  },
+  "keywords": [
+    "fullscreen",
+    "cross-browser",
+    "javascript"
+  ],
+  "author": "Aqours",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Aqours/Fullscreen/issues"
+  },
+  "homepage": "https://github.com/Aqours/Fullscreen#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.17",
+    "ts-loader": "^2.3.7",
+    "typescript": "^2.5.3",
+    "webpack": "^3.6.0"
+  }
+}
