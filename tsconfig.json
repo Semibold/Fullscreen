@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "declaration": true,
+    "declaration": false,
     "skipLibCheck": true,
     "noImplicitAny": true,
     "strictNullChecks": false,
-    "module": "umd",
+    "module": "esnext",
     "moduleResolution": "node",
     "target": "es5",
-    "outDir": "./dist/",
     "typeRoots": [
       "node_modules/@types"
     ],
