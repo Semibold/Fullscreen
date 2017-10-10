@@ -1,5 +1,5 @@
 {
-  "name": "fullscreen",
+  "name": "@aqours/fullscreen",
   "version": "1.0.0",
   "description": "JavaScript Fullscreen API. Support different frames(documents)",
   "main": "dist/bundle.min.js",
