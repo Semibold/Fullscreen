@@ -194,3 +194,5 @@ export class Fullscreen {
     }
 
 }
+
+export default Fullscreen;

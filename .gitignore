@@ -1,6 +1,11 @@
 # Created by .ignore support plugin (hsz.mobi)
-.vscode/
 .idea/
+.vscode/
 
+tmp/
+temp/
+deploy/
+coverage/
 node_modules/
-test/
+
+npm-debug.log*

@@ -13,13 +13,16 @@
 
 ```js
 // Script
-// <script src="./dist/bundle.min.js"></script>
+// <script src="./dist/fullscreen.min.js"></script>
 
 // CommonJS
-const { Fullscreen } = require('@aqours/fullscreen');
+const {Fullscreen} = require('@aqours/fullscreen');
 
 // ES Module
-import { Fullscreen } from '@aqours/fullscreen';
+import {Fullscreen} from '@aqours/fullscreen';
+
+// OR
+import Fullscreen from '@aqours/fullscreen';
 ```
 
 
@@ -37,7 +40,7 @@ More Information: [Can I Use Fullscreen?](http://caniuse.com/#search=fullscreen)
 const fs = new Fullscreen(target);
 
 // Property & Method
-// Use this like the spec API.
+// Use this like the spec interface.
 /**
  * @return {boolean}
  */
@@ -67,10 +70,10 @@ fs.exitFullscreen()
 
 
 
-// Extenal API
+// Extenal Interface
 /**
  * @summary needn't to add prefix to `type`
- * @param {'fullscreenchange' | 'fullscreenerror'} type
+ * @param {FullscreenEventType} type - 'fullscreenchange' | 'fullscreenerror' 
  * @param {EventListenerOrEventListenerObject} listener
  * @param {boolean} [useCapture]
  */

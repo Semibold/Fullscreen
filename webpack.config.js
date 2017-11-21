@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-
     entry: './source/index.ts',
     devtool: 'source-map',
     module: {
@@ -16,21 +15,20 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist/'),
-        filename: 'bundle.min.js',
+        filename: 'fullscreen.min.js',
         libraryTarget: 'umd',
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.jsx', '.js']
     },
     plugins: [
-        new CleanWebpackPlugin('dist/'),
+        new CleanWebpackPlugin('dist'),
         new webpack.ProgressPlugin(),
         new webpack.optimize.UglifyJsPlugin({
-            output: { ascii_only: true }
+            output: {ascii_only: true}
         }),
     ],
     watchOptions: {
         ignored: [/node_modules/]
     }
-
 };
