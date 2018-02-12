@@ -1,10 +1,5 @@
 {
   "rules": {
-    "variable-name": [
-      true,
-      "check-format",
-      "allow-pascal-case"
-    ],
     "member-ordering": [
       true,
       {
@@ -22,7 +17,6 @@
       "ignore-params",
       "ignore-properties"
     ],
-    "no-reference": false,
     "indent": [
       true,
       "spaces"
@@ -35,27 +29,17 @@
       true,
       "check-space"
     ],
-    "eofline": false,
     "forin": true,
     "interface-over-type-literal": true,
     "label-position": true,
     "no-arg": true,
     "no-construct": true,
-    "no-duplicate-super": true,
-    "no-empty-interface": false,
-    "no-eval": true,
-    "no-misused-new": true,
-    "no-string-throw": true,
-    "no-unnecessary-initializer": true,
-    "no-use-before-declare": true,
     "no-var-keyword": true,
-    "no-trailing-whitespace": false,
-    "quotemark": [
-      true,
-      "single",
-      "avoid-escape",
-      "avoid-template"
-    ],
+    "no-unnecessary-initializer": true,
+    "no-string-throw": true,
+    "no-misused-new": true,
+    "no-eval": true,
+    "no-duplicate-super": true,
     "one-line": [
       true,
       "check-open-brace",
@@ -63,7 +47,6 @@
       "check-else",
       "check-whitespace"
     ],
-    "prefer-const": false,
     "radix": true,
     "semicolon": [
       true,
@@ -96,28 +79,11 @@
       "check-decl",
       "check-operator",
       "check-separator",
-      "check-rest-spread",
       "check-type",
-      "check-type-operator",
       "check-preblock"
     ],
     "unified-signatures": true,
     "typeof-compare": true,
-    "no-require-imports": true,
-    "interface-name": false,
-    "new-parens": true,
-    "trailing-comma": false,
-    "one-variable-per-declaration": false,
-    "space-before-function-paren": [
-      true,
-      {
-        "anonymous": "always",
-        "asyncArrow": "always",
-        "named": "never",
-        "method": "never",
-        "constructor": "never"
-      }
-    ],
-    "no-shadowed-variable": false
+    "no-require-imports": true
   }
 }
