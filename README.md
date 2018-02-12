@@ -12,16 +12,16 @@
 ## Usage
 
 ```js
-// Script
-// <script src="./dist/fullscreen.min.js"></script>
+// General
+// <script src="./dist/out-web/bundle.min.js"></script>
 
-// CommonJS
+// CommonJS Module
 const {Fullscreen} = require('@aqours/fullscreen');
 
-// ES Module
+// ES-next Module
 import {Fullscreen} from '@aqours/fullscreen';
 
-// OR
+// ES-next Module
 import Fullscreen from '@aqours/fullscreen';
 ```
 
