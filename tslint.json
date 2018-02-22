@@ -83,7 +83,7 @@
       "check-preblock"
     ],
     "unified-signatures": true,
-    "typeof-compare": true,
+    "typeof-compare": false,
     "no-require-imports": true
   }
 }
