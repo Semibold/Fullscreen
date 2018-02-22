@@ -24,14 +24,14 @@ const pathMapping = {
 class Capsule {
 
     /**
-     * @return Promise<string[]>
+     * @return {Promise<string[]>}
      */
     static cleanDirectory() {
         return del(webpackConfig.output.path);
     }
 
     /**
-     * @return Stream
+     * @return {Stream}
      */
     static bundler() {
         return gulp.src(webpackConfig.entry)
@@ -40,7 +40,7 @@ class Capsule {
     }
 
     /**
-     * @return Stream
+     * @return {Stream}
      */
     static compressor() {
         const output = webpackConfig.output;
@@ -62,7 +62,7 @@ class Capsule {
     }
 
     /**
-     * @return Stream
+     * @return {Stream}
      */
     static stripper() {
         return gulp.src(pathMapping.closure_output)
