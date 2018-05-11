@@ -2,8 +2,6 @@
 .idea/
 .vscode/
 
-tmp/
-temp/
 deploy/
 coverage/
 node_modules/

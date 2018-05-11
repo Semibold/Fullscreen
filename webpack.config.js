@@ -2,55 +2,70 @@
  * module bundler
  */
 
+const del = require('del');
 const path = require('path');
 const webpack = require('webpack');
+const EventHooksPlugin = require('event-hooks-webpack-plugin');
 
-module.exports = {
+/**
+ * @desc webpack
+ */
+module.exports = (env = {}) => {
 
-    entry: path.resolve(__dirname, './source/index.ts'),
+    const outputPath = path.resolve(__dirname, './dist/out-web');
 
-    devtool: 'inline-source-map',
+    console.info('webpack runtime environment:', env);
 
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-            },
-        ],
-    },
+    return {
 
-    devServer: {
-        overlay: true,
-        compress: true,
-        publicPath: '/dist/out-web/',
-        host: 'localhost',
-        port: 8080,
-        open: false,
-        openPage: './index.html',
-        headers: {
-            'X-Custom-Server': 'webpack-dev-server',
+        mode: 'development',
+
+        entry: {
+            fullscreen: path.resolve(__dirname, './source/index.ts'),
         },
-    },
 
-    output: {
-        path: path.resolve(__dirname, './dist/out-web'),
-        filename: 'bundle.webpack.js',
-        libraryTarget: 'umd',
+        module: {
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    use: 'ts-loader',
+                },
+            ],
+        },
 
-        // @see https://github.com/google/closure-compiler/issues/2776
-        // @see https://github.com/webpack/webpack/issues/238#issuecomment-174468364
-        // @see https://webpack.js.org/configuration/output/#output-devtoolfallbackmodulefilenametemplate
-        devtoolModuleFilenameTemplate: '[resource-path]',
-        devtoolFallbackModuleFilenameTemplate: '[absolute-resource-path]',
-    },
+        devServer: {
+            overlay: true,
+            compress: true,
+            publicPath: outputPath,
+            host: 'localhost',
+            port: 8080,
+            open: false,
+            openPage: './index.html',
+            headers: {
+                'X-Custom-Server': 'webpack-dev-server',
+            },
+        },
 
-    resolve: {
-        extensions: ['.tsx', '.ts', '.jsx', '.js'],
-    },
+        output: {
+            path: outputPath,
+            filename: '[name].js',
+            libraryTarget: 'umd',
+        },
 
-    plugins: [
-        new webpack.ProgressPlugin(),
-    ],
+        resolve: {
+            extensions: ['.tsx', '.ts', '.jsx', '.js'],
+        },
+
+        plugins: [
+            new webpack.ProgressPlugin(),
+            new EventHooksPlugin({
+                environment: function () {
+                    console.log('Starting: preproccess');
+                    del.sync(outputPath);
+                    console.log('Finished: preproccess');
+                },
+            }),
+        ],
+    };
 
 };

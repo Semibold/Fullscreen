@@ -25,6 +25,7 @@ declare global {
         msRequestFullscreen(): void;
     }
 }
+
 export interface FullscreenAPIMapping {
     fullscreenEnabled: 'fullscreenEnabled' | 'webkitFullscreenEnabled' | 'mozFullScreenEnabled' | 'msFullscreenEnabled';
     fullscreenElement: 'fullscreenElement' | 'webkitFullscreenElement' | 'mozFullScreenElement' | 'msFullscreenElement';
@@ -35,13 +36,14 @@ export interface FullscreenAPIMapping {
     fullscreenchange: 'fullscreenchange' | 'webkitfullscreenchange' | 'mozfullscreenchange' | 'MSFullscreenChange';
     fullscreenerror: 'fullscreenerror' | 'webkitfullscreenerror' | 'mozfullscreenerror' | 'MSFullscreenError';
 }
+
 export type FullscreenEventType = 'fullscreenchange' | 'fullscreenerror';
 
 
 export class Fullscreen {
 
-    private ele: Element;
-    private doc: Document;
+    private readonly ele: Element;
+    private readonly doc: Document;
     private tab: number = -1;
     private cfs: FullscreenAPIMapping;
     private fss = [
@@ -194,5 +196,3 @@ export class Fullscreen {
     }
 
 }
-
-export default Fullscreen;
