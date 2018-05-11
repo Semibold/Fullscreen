@@ -33,19 +33,6 @@ module.exports = (env = {}) => {
             ],
         },
 
-        devServer: {
-            overlay: true,
-            compress: true,
-            publicPath: outputPath,
-            host: 'localhost',
-            port: 8080,
-            open: false,
-            openPage: './index.html',
-            headers: {
-                'X-Custom-Server': 'webpack-dev-server',
-            },
-        },
-
         output: {
             path: outputPath,
             filename: '[name].js',
