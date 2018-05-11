@@ -13,16 +13,13 @@
 
 ```js
 // General
-// <script src="./dist/out-web/bundle.min.js"></script>
+// <script src="./dist/out-web/fullscreen.js"></script>
 
 // CommonJS Module
 const {Fullscreen} = require('@aqours/fullscreen');
 
 // ES-next Module
 import {Fullscreen} from '@aqours/fullscreen';
-
-// ES-next Module
-import Fullscreen from '@aqours/fullscreen';
 ```
 
 
