@@ -1,9 +1,12 @@
 # Created by .ignore support plugin (hsz.mobi)
-.idea/
-.vscode/
+.idea
+.vscode
 
-deploy/
-coverage/
-node_modules/
+dist/*
+!dist/release
+
+deploy
+coverage
+node_modules
 
 npm-debug.log*
