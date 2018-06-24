@@ -7,15 +7,15 @@
 
 > Source code is written by TypeScript.
 
-`$ npm install --save @aqours/fullscreen`
+`$ npm i @aqours/fullscreen`
 
 ## Usage
 
 ```js
-// General
-// <script src="./dist/out-web/fullscreen.js"></script>
+// Global
+// <script src="./dist/release/fullscreen.js"></script>
 
-// CommonJS Module
+// NodeJS Module
 const {Fullscreen} = require('@aqours/fullscreen');
 
 // ES-next Module
@@ -36,6 +36,12 @@ More Information: [Can I Use Fullscreen?](http://caniuse.com/#search=fullscreen)
  */
 const fs = new Fullscreen(target);
 
+// Static Property
+/*
+ * @return {Object}
+ */
+Fullscreen.metadata
+
 // Property & Method
 // Use this like the spec interface.
 /**
@@ -49,33 +55,40 @@ fs.fullscreenEnabled
 fs.fullscreenElement
 
 /**
- * Fullscreen Event
+ * @desc fullscreen event
  */
 fs.onfullscreenchange
 fs.onfullscreenerror
 
 /**
- * Request Fullscreen
- * like spec: target.requestFullscreen()
+ * @desc request fullscreen
+ * @desc like spec: target.requestFullscreen()
  */
 fs.requestFullscreen()
 
 /**
- * Exit Fullscreen
+ * @desc exit fullscreen
  */
 fs.exitFullscreen()
 
 
 
-// Extenal Interface
+// Other interface.
 /**
- * @summary needn't to add prefix to `type`
+ * @desc needn't to add prefix to `type`
  * @param {FullscreenEventType} type - 'fullscreenchange' | 'fullscreenerror' 
  * @param {EventListenerOrEventListenerObject} listener
- * @param {boolean} [useCapture]
+ * @param {boolean | AddEventListenerOptions} [options]
  */
-fs.addEventListener(type, listener, useCapture)
-fs.removeEventListener(type, listener, useCapture)
+fs.addEventListener(type, listener, options)
+
+/**
+ * @desc needn't to add prefix to `type`
+ * @param {FullscreenEventType} type - 'fullscreenchange' | 'fullscreenerror' 
+ * @param {EventListenerOrEventListenerObject} listener
+ * @param {boolean | EventListenerOptions} [options]
+ */
+fs.removeEventListener(type, listener, options)
 
 /**
  * Notice: this method refer to target element, `exitFullscreen` refer to ownerDocument.
