@@ -1,6 +1,7 @@
 /**
  * @summary TypeScript Version
  */
+
 declare global {
     interface Document {
         readonly webkitFullscreenEnabled: Document['fullscreenEnabled'];
@@ -26,6 +27,8 @@ declare global {
     }
 }
 
+import {metadata} from './metadata';
+
 export interface FullscreenAPIMapping {
     fullscreenEnabled: 'fullscreenEnabled' | 'webkitFullscreenEnabled' | 'mozFullScreenEnabled' | 'msFullscreenEnabled';
     fullscreenElement: 'fullscreenElement' | 'webkitFullscreenElement' | 'mozFullScreenElement' | 'msFullscreenElement';
@@ -44,9 +47,9 @@ export class Fullscreen {
 
     private readonly ele: Element;
     private readonly doc: Document;
-    private tab: number = -1;
+    private tab = -1;
     private cfs: FullscreenAPIMapping;
-    private fss = [
+    private readonly fss = [
         {
             fullscreenEnabled: 'fullscreenEnabled',
             fullscreenElement: 'fullscreenElement',
@@ -86,13 +89,17 @@ export class Fullscreen {
             exitFullscreen: 'msExitFullscreen',
             fullscreenchange: 'MSFullscreenChange',
             fullscreenerror: 'MSFullscreenError',
-        }
+        },
     ];
 
     constructor(ele?: Element) {
         this.ele = ele || document.documentElement;
         this.doc = this.ele.ownerDocument;
         this.checkoutFullscreen();
+    }
+
+    static get metadata() {
+        return metadata;
     }
 
     private checkoutFullscreen() {
@@ -124,6 +131,8 @@ export class Fullscreen {
     get onfullscreenchange() {
         if (this.cfs) {
             return this.doc[this.cfs.onfullscreenchange];
+        } else {
+            return null;
         }
     }
 
@@ -136,6 +145,8 @@ export class Fullscreen {
     get onfullscreenerror() {
         if (this.cfs) {
             return this.doc[this.cfs.onfullscreenerror];
+        } else {
+            return null;
         }
     }
 
@@ -157,18 +168,18 @@ export class Fullscreen {
         }
     }
 
-    addEventListener(type: FullscreenEventType, listener: EventListenerOrEventListenerObject, useCapture?: boolean) {
+    addEventListener(type: FullscreenEventType, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) {
         if (type === 'fullscreenchange' || type === 'fullscreenerror') {
             if (this.cfs) {
-                this.doc.addEventListener(this.cfs[type], listener, useCapture);
+                this.doc.addEventListener(this.cfs[type], listener, options);
             }
         }
     }
 
-    removeEventListener(type: FullscreenEventType, listener: EventListenerOrEventListenerObject, useCapture?: boolean) {
+    removeEventListener(type: FullscreenEventType, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions) {
         if (type === 'fullscreenchange' || type === 'fullscreenerror') {
             if (this.cfs) {
-                this.doc.removeEventListener(this.cfs[type], listener, useCapture);
+                this.doc.removeEventListener(this.cfs[type], listener, options);
             }
         }
     }
