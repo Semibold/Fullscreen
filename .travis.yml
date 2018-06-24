@@ -1,0 +1,17 @@
+sudo: required
+language: node_js
+node_js:
+  - lts/*
+
+before_script:
+  - npm i
+
+script:
+  - npm run tslint
+
+deploy:
+  provider: npm
+  email: "$NPM_EMAIL"
+  api_key: "$NPM_TOKEN"
+  on:
+    tags: true
