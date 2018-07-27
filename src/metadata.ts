@@ -1,5 +1,5 @@
 interface ProjectMetadata {
-    mode: 'none' | 'development' | 'production';
+    mode: "none" | "development" | "production";
     name: string;
     gitHash: string;
     version: string;

@@ -4,18 +4,18 @@
 
 declare global {
     interface Document {
-        readonly webkitFullscreenEnabled: Document['fullscreenEnabled'];
-        readonly mozFullScreenEnabled: Document['fullscreenEnabled'];
-        readonly msFullscreenEnabled: Document['fullscreenEnabled'];
-        readonly webkitFullscreenElement: Document['fullscreenElement'];
-        readonly mozFullScreenElement: Document['fullscreenElement'];
-        readonly msFullscreenElement: Document['fullscreenElement'];
-        onwebkitfullscreenchange: Document['onfullscreenchange'];
-        onmozfullscreenchange: Document['onfullscreenchange'];
-        onmsfullscreenchange: Document['onfullscreenchange'];
-        onwebkitfullscreenerror: Document['onfullscreenerror'];
-        onmozfullscreenerror: Document['onfullscreenerror'];
-        onmsfullscreenerror: Document['onfullscreenerror'];
+        readonly webkitFullscreenEnabled: Document["fullscreenEnabled"];
+        readonly mozFullScreenEnabled: Document["fullscreenEnabled"];
+        readonly msFullscreenEnabled: Document["fullscreenEnabled"];
+        readonly webkitFullscreenElement: Document["fullscreenElement"];
+        readonly mozFullScreenElement: Document["fullscreenElement"];
+        readonly msFullscreenElement: Document["fullscreenElement"];
+        onwebkitfullscreenchange: Document["onfullscreenchange"];
+        onmozfullscreenchange: Document["onfullscreenchange"];
+        onmsfullscreenchange: Document["onfullscreenchange"];
+        onwebkitfullscreenerror: Document["onfullscreenerror"];
+        onmozfullscreenerror: Document["onfullscreenerror"];
+        onmsfullscreenerror: Document["onfullscreenerror"];
         webkitExitFullscreen(): void;
         mozCancelFullScreen(): void;
         msExitFullscreen(): void;
@@ -27,69 +27,71 @@ declare global {
     }
 }
 
-import {metadata} from './metadata';
+import { metadata } from "./metadata";
 
 export interface FullscreenAPIMapping {
-    fullscreenEnabled: 'fullscreenEnabled' | 'webkitFullscreenEnabled' | 'mozFullScreenEnabled' | 'msFullscreenEnabled';
-    fullscreenElement: 'fullscreenElement' | 'webkitFullscreenElement' | 'mozFullScreenElement' | 'msFullscreenElement';
-    onfullscreenchange: 'onfullscreenchange' | 'onwebkitfullscreenchange' | 'onmozfullscreenchange' | 'onmsfullscreenchange';
-    onfullscreenerror: 'onfullscreenerror' | 'onwebkitfullscreenerror' | 'onmozfullscreenerror' | 'onmsfullscreenerror';
-    requestFullscreen: 'requestFullscreen' | 'webkitRequestFullscreen' | 'mozRequestFullScreen' | 'msRequestFullscreen';
-    exitFullscreen: 'exitFullscreen' | 'webkitExitFullscreen' | 'mozCancelFullScreen' | 'msExitFullscreen';
-    fullscreenchange: 'fullscreenchange' | 'webkitfullscreenchange' | 'mozfullscreenchange' | 'MSFullscreenChange';
-    fullscreenerror: 'fullscreenerror' | 'webkitfullscreenerror' | 'mozfullscreenerror' | 'MSFullscreenError';
+    fullscreenEnabled: "fullscreenEnabled" | "webkitFullscreenEnabled" | "mozFullScreenEnabled" | "msFullscreenEnabled";
+    fullscreenElement: "fullscreenElement" | "webkitFullscreenElement" | "mozFullScreenElement" | "msFullscreenElement";
+    onfullscreenchange:
+        | "onfullscreenchange"
+        | "onwebkitfullscreenchange"
+        | "onmozfullscreenchange"
+        | "onmsfullscreenchange";
+    onfullscreenerror: "onfullscreenerror" | "onwebkitfullscreenerror" | "onmozfullscreenerror" | "onmsfullscreenerror";
+    requestFullscreen: "requestFullscreen" | "webkitRequestFullscreen" | "mozRequestFullScreen" | "msRequestFullscreen";
+    exitFullscreen: "exitFullscreen" | "webkitExitFullscreen" | "mozCancelFullScreen" | "msExitFullscreen";
+    fullscreenchange: "fullscreenchange" | "webkitfullscreenchange" | "mozfullscreenchange" | "MSFullscreenChange";
+    fullscreenerror: "fullscreenerror" | "webkitfullscreenerror" | "mozfullscreenerror" | "MSFullscreenError";
 }
 
-export type FullscreenEventType = 'fullscreenchange' | 'fullscreenerror';
-
+export type FullscreenEventType = "fullscreenchange" | "fullscreenerror";
 
 export class Fullscreen {
-
     private readonly ele: Element;
     private readonly doc: Document;
     private tab = -1;
     private cfs: FullscreenAPIMapping;
     private readonly fss = [
         {
-            fullscreenEnabled: 'fullscreenEnabled',
-            fullscreenElement: 'fullscreenElement',
-            onfullscreenchange: 'onfullscreenchange',
-            onfullscreenerror: 'onfullscreenerror',
-            requestFullscreen: 'requestFullscreen',
-            exitFullscreen: 'exitFullscreen',
-            fullscreenchange: 'fullscreenchange',
-            fullscreenerror: 'fullscreenerror',
+            fullscreenEnabled: "fullscreenEnabled",
+            fullscreenElement: "fullscreenElement",
+            onfullscreenchange: "onfullscreenchange",
+            onfullscreenerror: "onfullscreenerror",
+            requestFullscreen: "requestFullscreen",
+            exitFullscreen: "exitFullscreen",
+            fullscreenchange: "fullscreenchange",
+            fullscreenerror: "fullscreenerror"
         },
         {
-            fullscreenEnabled: 'webkitFullscreenEnabled',
-            fullscreenElement: 'webkitFullscreenElement',
-            onfullscreenchange: 'onwebkitfullscreenchange',
-            onfullscreenerror: 'onwebkitfullscreenerror',
-            requestFullscreen: 'webkitRequestFullscreen',
-            exitFullscreen: 'webkitExitFullscreen',
-            fullscreenchange: 'webkitfullscreenchange',
-            fullscreenerror: 'webkitfullscreenerror',
+            fullscreenEnabled: "webkitFullscreenEnabled",
+            fullscreenElement: "webkitFullscreenElement",
+            onfullscreenchange: "onwebkitfullscreenchange",
+            onfullscreenerror: "onwebkitfullscreenerror",
+            requestFullscreen: "webkitRequestFullscreen",
+            exitFullscreen: "webkitExitFullscreen",
+            fullscreenchange: "webkitfullscreenchange",
+            fullscreenerror: "webkitfullscreenerror"
         },
         {
-            fullscreenEnabled: 'mozFullScreenEnabled',
-            fullscreenElement: 'mozFullScreenElement',
-            onfullscreenchange: 'onmozfullscreenchange',
-            onfullscreenerror: 'onmozfullscreenerror',
-            requestFullscreen: 'mozRequestFullScreen',
-            exitFullscreen: 'mozCancelFullScreen',
-            fullscreenchange: 'mozfullscreenchange',
-            fullscreenerror: 'mozfullscreenerror',
+            fullscreenEnabled: "mozFullScreenEnabled",
+            fullscreenElement: "mozFullScreenElement",
+            onfullscreenchange: "onmozfullscreenchange",
+            onfullscreenerror: "onmozfullscreenerror",
+            requestFullscreen: "mozRequestFullScreen",
+            exitFullscreen: "mozCancelFullScreen",
+            fullscreenchange: "mozfullscreenchange",
+            fullscreenerror: "mozfullscreenerror"
         },
         {
-            fullscreenEnabled: 'msFullscreenEnabled',
-            fullscreenElement: 'msFullscreenElement',
-            onfullscreenchange: 'onmsfullscreenchange',
-            onfullscreenerror: 'onmsfullscreenerror',
-            requestFullscreen: 'msRequestFullscreen',
-            exitFullscreen: 'msExitFullscreen',
-            fullscreenchange: 'MSFullscreenChange',
-            fullscreenerror: 'MSFullscreenError',
-        },
+            fullscreenEnabled: "msFullscreenEnabled",
+            fullscreenElement: "msFullscreenElement",
+            onfullscreenchange: "onmsfullscreenchange",
+            onfullscreenerror: "onmsfullscreenerror",
+            requestFullscreen: "msRequestFullscreen",
+            exitFullscreen: "msExitFullscreen",
+            fullscreenchange: "MSFullscreenChange",
+            fullscreenerror: "MSFullscreenError"
+        }
     ];
 
     constructor(ele?: Element) {
@@ -136,7 +138,7 @@ export class Fullscreen {
         }
     }
 
-    set onfullscreenchange(handler: Document['onfullscreenchange']) {
+    set onfullscreenchange(handler: Document["onfullscreenchange"]) {
         if (this.cfs) {
             this.doc[this.cfs.onfullscreenchange] = handler;
         }
@@ -150,7 +152,7 @@ export class Fullscreen {
         }
     }
 
-    set onfullscreenerror(handler: Document['onfullscreenerror']) {
+    set onfullscreenerror(handler: Document["onfullscreenerror"]) {
         if (this.cfs) {
             this.doc[this.cfs.onfullscreenerror] = handler;
         }
@@ -168,16 +170,24 @@ export class Fullscreen {
         }
     }
 
-    addEventListener(type: FullscreenEventType, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) {
-        if (type === 'fullscreenchange' || type === 'fullscreenerror') {
+    addEventListener(
+        type: FullscreenEventType,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions
+    ) {
+        if (type === "fullscreenchange" || type === "fullscreenerror") {
             if (this.cfs) {
                 this.doc.addEventListener(this.cfs[type], listener, options);
             }
         }
     }
 
-    removeEventListener(type: FullscreenEventType, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions) {
-        if (type === 'fullscreenchange' || type === 'fullscreenerror') {
+    removeEventListener(
+        type: FullscreenEventType,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions
+    ) {
+        if (type === "fullscreenchange" || type === "fullscreenerror") {
             if (this.cfs) {
                 this.doc.removeEventListener(this.cfs[type], listener, options);
             }
@@ -205,5 +215,4 @@ export class Fullscreen {
     get currentElement(): Element {
         return this.ele;
     }
-
 }
