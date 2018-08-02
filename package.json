@@ -8,7 +8,7 @@
     "build": "npm run tslint && webpack --display=errors-only --mode=production",
     "start": "webpack -w --mode=development",
     "tslint": "tslint -p ./ ./**/*.ts ./**/*.tsx",
-    "pretty": "prettier --write ./{gulpfile.js,webpack.config.js,{src,test,types}/**/*}",
+    "pretty": "prettier --write ./{webpack.config.js,{src,test,types}/**/*.{js,jsx,jsm,ts,tsx,css,less,json,md}}",
     "version": "npm run build && git add -A dist"
   },
   "repository": {
