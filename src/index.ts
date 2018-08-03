@@ -50,7 +50,7 @@ export class Fullscreen {
     private readonly ele: Element;
     private readonly doc: Document;
     private tab = -1;
-    private cfs: FullscreenAPIMapping;
+    private cfs: FullscreenAPIMapping | null;
     private readonly fss = [
         {
             fullscreenEnabled: "fullscreenEnabled",
@@ -158,13 +158,13 @@ export class Fullscreen {
         }
     }
 
-    requestFullscreen() {
+    requestFullscreen(): Promise<void> | void {
         if (this.cfs) {
-            this.ele[this.cfs.requestFullscreen]();
+            return this.ele[this.cfs.requestFullscreen]();
         }
     }
 
-    exitFullscreen() {
+    exitFullscreen(): void {
         if (this.cfs) {
             this.doc[this.cfs.exitFullscreen]();
         }
@@ -194,7 +194,7 @@ export class Fullscreen {
         }
     }
 
-    toggleFullscreen(forceExit?: boolean) {
+    toggleFullscreen(forceExit?: boolean): void {
         if (forceExit) {
             if (this.fullscreenElement === this.ele) {
                 this.exitFullscreen();
