@@ -43,31 +43,48 @@ const fs = new Fullscreen(target);
 Fullscreen.metadata
 
 // Property & Method
-// Use this like the spec interface.
 /**
+ * @desc like: Document.fullscreenEnabled
+ * @desc The `fullscreenEnabled` attribute tells you whether or not the document is
+ *       currently in a state that would allow fullscreen mode to be requested.
+ *
  * @return {boolean}
  */
 fs.fullscreenEnabled
 
 /**
+ * @desc like: Document.fullscreenElement
+ * @desc The `fullscreenElement` attribute tells you the element that's currently being
+ *       displayed fullscreen. If this is non-null, the document is in fullscreen mode.
+ *       If this is null, the document is not in fullscreen mode.
+ *
  * @return {Element | null}
  */
 fs.fullscreenElement
 
 /**
- * @desc fullscreen event
+ * @desc like: Document.onfullscreenchange
+ * @desc like: Document.onfullscreenerror
+ * @desc The `fullscreenchange` event is fired when the browser is switched to/out-of
+ *       fullscreen mode.
+ * @desc The fullscreenerror event is fired when the browser cannot switch to fullscreen
+ *       mode.
  */
 fs.onfullscreenchange
 fs.onfullscreenerror
 
 /**
- * @desc request fullscreen
- * @desc like spec: target.requestFullscreen()
+ * @desc like: Element.requestFullscreen()
+ * @desc The `Element.requestFullscreen()` method issues an asynchronous request to make
+ *       the element be displayed full-screen.
  */
 fs.requestFullscreen()
 
 /**
- * @desc exit fullscreen
+ * @desc like: Document.exitFullscreen()
+ * @desc The `Document.exitFullscreen()` is a method that takes the document out of
+ *       full-screen mode; this is used to reverse the effects of a call to make an
+ *       element in the document full-screen using its Element.requestFullscreen() method
  */
 fs.exitFullscreen()
 
@@ -75,6 +92,7 @@ fs.exitFullscreen()
 
 // Other interface.
 /**
+ * @desc like: Document.addEventListener
  * @desc needn't to add prefix to `type`
  * @param {FullscreenEventType} type - 'fullscreenchange' | 'fullscreenerror' 
  * @param {EventListenerOrEventListenerObject} listener
@@ -83,6 +101,7 @@ fs.exitFullscreen()
 fs.addEventListener(type, listener, options)
 
 /**
+ * @desc like: Document.removeEventListener
  * @desc needn't to add prefix to `type`
  * @param {FullscreenEventType} type - 'fullscreenchange' | 'fullscreenerror' 
  * @param {EventListenerOrEventListenerObject} listener
@@ -91,8 +110,9 @@ fs.addEventListener(type, listener, options)
 fs.removeEventListener(type, listener, options)
 
 /**
- * Notice: this method refer to target element, `exitFullscreen` refer to ownerDocument.
- *         in other words, `exitFullscreen` can controll other element besides target element.
+ * @desc Note: This method refer to target element, `exitFullscreen` refer to
+ *             ownerDocument. In other words, `toggleFullscreen` can only switch 
+ *             target element to/out-of fullscreen mode.
  * @param {boolean} [forceExit]
  */
 fs.toggleFullscreen(forceExit)
