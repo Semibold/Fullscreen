@@ -49,8 +49,10 @@ export type FullscreenEventType = "fullscreenchange" | "fullscreenerror";
 export class Fullscreen {
     private readonly ele: Element;
     private readonly doc: Document;
-    private tab = -1;
-    private cfs: FullscreenAPIMapping | null;
+    private readonly tab: number = -1;
+    private readonly cfs: FullscreenAPIMapping | null;
+    private readonly originListeners: EventListenerOrEventListenerObject[] = [];
+    private readonly wrappedListeners: EventListenerOrEventListenerObject[] = [];
     private readonly fss = [
         {
             fullscreenEnabled: "fullscreenEnabled",
@@ -97,14 +99,6 @@ export class Fullscreen {
     constructor(ele?: Element) {
         this.ele = ele || document.documentElement;
         this.doc = this.ele.ownerDocument;
-        this.checkoutFullscreen();
-    }
-
-    static get metadata() {
-        return metadata;
-    }
-
-    private checkoutFullscreen() {
         for (let i = 0; i < this.fss.length; i++) {
             if (this.fss[i].fullscreenEnabled in this.doc) {
                 this.tab = i;
@@ -112,6 +106,10 @@ export class Fullscreen {
             }
         }
         this.cfs = <FullscreenAPIMapping>this.fss[this.tab] || null;
+    }
+
+    static get metadata() {
+        return metadata;
     }
 
     get fullscreenEnabled(): boolean {
@@ -130,34 +128,6 @@ export class Fullscreen {
         }
     }
 
-    get onfullscreenchange() {
-        if (this.cfs) {
-            return this.doc[this.cfs.onfullscreenchange];
-        } else {
-            return null;
-        }
-    }
-
-    set onfullscreenchange(handler: Document["onfullscreenchange"]) {
-        if (this.cfs) {
-            this.doc[this.cfs.onfullscreenchange] = handler;
-        }
-    }
-
-    get onfullscreenerror() {
-        if (this.cfs) {
-            return this.doc[this.cfs.onfullscreenerror];
-        } else {
-            return null;
-        }
-    }
-
-    set onfullscreenerror(handler: Document["onfullscreenerror"]) {
-        if (this.cfs) {
-            this.doc[this.cfs.onfullscreenerror] = handler;
-        }
-    }
-
     requestFullscreen(): Promise<void> | void {
         if (this.cfs) {
             return this.ele[this.cfs.requestFullscreen]();
@@ -166,44 +136,77 @@ export class Fullscreen {
 
     exitFullscreen(): void {
         if (this.cfs) {
-            this.doc[this.cfs.exitFullscreen]();
+            if (this.fullscreenElement === this.ele) {
+                this.doc[this.cfs.exitFullscreen]();
+            }
         }
     }
 
-    addEventListener(
+    toggleFullscreen(): void {
+        if (this.fullscreenElement === this.ele) {
+            this.exitFullscreen();
+        } else {
+            this.requestFullscreen();
+        }
+    }
+
+    private generateWrappedListener(listener: EventListenerOrEventListenerObject): EventListenerOrEventListenerObject {
+        if (typeof listener === "function") {
+            return (e: Event) => e.target === this.ele && listener.call(e.currentTarget, e);
+        } else {
+            return Object.create(listener, {
+                handleEvent: {
+                    writable: true,
+                    enumerable: true,
+                    configurable: true,
+                    value: (e: Event) => e.target === this.ele && listener.handleEvent.call(e.currentTarget, e)
+                }
+            });
+        }
+    }
+
+    private getWrappedListener(
+        listener: EventListenerOrEventListenerObject,
+        pop: boolean = false
+    ): EventListenerOrEventListenerObject {
+        const i = this.originListeners.indexOf(listener);
+        if (i === -1) {
+            const wrappedListener = this.generateWrappedListener(listener);
+            if (!pop) {
+                this.originListeners.push(listener);
+                this.wrappedListeners.push(wrappedListener);
+            }
+            return wrappedListener;
+        } else {
+            const wrappedListener = this.wrappedListeners[i];
+            if (pop) {
+                this.originListeners.splice(i, 1);
+                this.wrappedListeners.splice(i, 1);
+            }
+            return wrappedListener;
+        }
+    }
+
+    addListener(
         type: FullscreenEventType,
         listener: EventListenerOrEventListenerObject,
         options?: boolean | AddEventListenerOptions
     ) {
         if (type === "fullscreenchange" || type === "fullscreenerror") {
             if (this.cfs) {
-                this.doc.addEventListener(this.cfs[type], listener, options);
+                this.doc.addEventListener(this.cfs[type], this.getWrappedListener(listener), options);
             }
         }
     }
 
-    removeEventListener(
+    removeListener(
         type: FullscreenEventType,
         listener: EventListenerOrEventListenerObject,
         options?: boolean | EventListenerOptions
     ) {
         if (type === "fullscreenchange" || type === "fullscreenerror") {
             if (this.cfs) {
-                this.doc.removeEventListener(this.cfs[type], listener, options);
-            }
-        }
-    }
-
-    toggleFullscreen(forceExit?: boolean): void {
-        if (forceExit) {
-            if (this.fullscreenElement === this.ele) {
-                this.exitFullscreen();
-            }
-        } else {
-            if (this.fullscreenElement === this.ele) {
-                this.exitFullscreen();
-            } else {
-                this.requestFullscreen();
+                this.doc.removeEventListener(this.cfs[type], this.getWrappedListener(listener, true), options);
             }
         }
     }
