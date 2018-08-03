@@ -67,16 +67,16 @@
 
     document.querySelector('#fs-enabled').textContent = fs2.fullscreenEnabled;
 
-    fs1.onfullscreenchange = function (e) {
-        console.log('Top - onfullscreenchange:', fs1.fullscreenElement);
-    };
-    fs1.onfullscreenerror = function (e) {
-        console.log('Top - onfullscreenerror:', e);
-    };
-    fs2.addEventListener('fullscreenchange', function (e) {
-        console.log('Sub - fullscreenchange:', fs2.fullscreenElement);
+    fs1.addListener('fullscreenchange', function (e) {
+        console.log('Top - fullscreenchange:', fs1.fullscreenElement, 'this:', this);
     });
-    fs2.addEventListener('fullscreenerror', function (e) {
+    fs1.addListener('fullscreenerror', function (e) {
+        console.log('Top - fullscreenerror:', e);
+    });
+    fs2.addListener('fullscreenchange', function (e) {
+        console.log('Sub - fullscreenchange:', fs2.fullscreenElement, 'this:', this);
+    });
+    fs2.addListener('fullscreenerror', function (e) {
         console.log('Sub - fullscreenerror:', e);
     });
 
