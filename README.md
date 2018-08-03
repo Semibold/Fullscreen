@@ -137,7 +137,6 @@ if (fs.fullscreenEnabled) {
     // log: fullscreenchange event triggered
     fs.removeListener('fullscreenchange', onFullscreenChange);
     fs.exitFullscreen();
-    // log: n/a
 
     fs.addListener('fullscreenchange', onFullscreenChange);
     document[fs.fullscreenMapping.onfullscreenchange] = onFullscreenChange;
