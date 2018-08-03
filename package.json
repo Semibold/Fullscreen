@@ -1,6 +1,6 @@
 {
   "name": "@aqours/fullscreen",
-  "version": "1.5.3",
+  "version": "2.0.0",
   "description": "JavaScript Fullscreen API. Support different frames(documents)",
   "main": "dist/release/fullscreen.js",
   "types": "src/index.ts",
