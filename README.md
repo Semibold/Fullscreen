@@ -2,6 +2,8 @@
 
 > JavaScript Fullscreen API. Support different frames(documents). Just for browser.
 
+[Navigate to 1.x docs](https://github.com/Aqours/Fullscreen/blob/1.5.3/README.md)
+
 
 ## Install
 

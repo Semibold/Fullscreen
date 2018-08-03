@@ -1,7 +1,3 @@
-/**
- * @summary TypeScript Version
- */
-
 declare global {
     interface Document {
         readonly webkitFullscreenEnabled: Document["fullscreenEnabled"];
