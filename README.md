@@ -77,6 +77,8 @@ fs.onfullscreenerror
  * @desc like: Element.requestFullscreen()
  * @desc The `Element.requestFullscreen()` method issues an asynchronous request to make
  *       the element be displayed full-screen.
+ *
+ * @return {Promise<void>|void}
  */
 fs.requestFullscreen()
 
@@ -89,11 +91,10 @@ fs.requestFullscreen()
 fs.exitFullscreen()
 
 
-
-// Other interface.
 /**
  * @desc like: Document.addEventListener
  * @desc needn't to add prefix to `type`
+ *
  * @param {FullscreenEventType} type - 'fullscreenchange' | 'fullscreenerror' 
  * @param {EventListenerOrEventListenerObject} listener
  * @param {boolean | AddEventListenerOptions} [options]
@@ -103,6 +104,7 @@ fs.addEventListener(type, listener, options)
 /**
  * @desc like: Document.removeEventListener
  * @desc needn't to add prefix to `type`
+ *
  * @param {FullscreenEventType} type - 'fullscreenchange' | 'fullscreenerror' 
  * @param {EventListenerOrEventListenerObject} listener
  * @param {boolean | EventListenerOptions} [options]
@@ -113,6 +115,7 @@ fs.removeEventListener(type, listener, options)
  * @desc Note: This method refer to target element, `exitFullscreen` refer to
  *             ownerDocument. In other words, `toggleFullscreen` can only switch 
  *             target element to/out-of fullscreen mode.
+ *
  * @param {boolean} [forceExit]
  */
 fs.toggleFullscreen(forceExit)
