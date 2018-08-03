@@ -61,8 +61,8 @@ fs.fullscreenEnabled
 fs.fullscreenElement
 
 /**
- * @desc The `target.requestFullscreen()` method issues an asynchronous request to make
- *       the element be displayed full-screen.
+ * @desc The `fs.requestFullscreen()` method issues an asynchronous request to make
+ *       the target be displayed full-screen.
  *
  * @return {Promise<void>|void}
  */
@@ -72,9 +72,8 @@ fs.requestFullscreen()
  * @desc Be Careful: It's not equal to `docuemnt.exitFullscreen();` which equal to
  *       `document[fs.fullscreenMapping.exitFullscreen]();` actually. The method does
  *       nothing if `document.fullscreenElement !== target`.
- * @desc The `target.exitFullscreen()` is a method that takes the target out of
- *       full-screen mode; this is used to reverse the effects of a call to make an
- *       element in the document full-screen using its Element.requestFullscreen() method
+ * @desc The `fs.exitFullscreen()` is a method that takes the target out of
+ *       full-screen mode.
  */
 fs.exitFullscreen()
 
@@ -118,6 +117,35 @@ fs.fullscreenMapping
  * @return {Element} - get current target element
  */
 fs.currentElement
+```
+
+
+## Example
+
+```js
+const fs = new Fullscreen(document.body);
+
+function onFullscreenChange(e) {
+    console.log('fullscreenchange event triggered');
+}
+
+if (fs.fullscreenEnabled) {
+    fs.addListener('fullscreenchange', onFullscreenChange);
+    fs.requestFullscreen();     // triggered by gesture
+    // log: fullscreenchange event triggered
+    fs.removeListener('fullscreenchange', onFullscreenChange);
+    fs.exitFullscreen();
+    // log: n/a
+
+    fs.addListener('fullscreenchange', onFullscreenChange);
+    document[fs.fullscreenMapping.onfullscreenchange] = onFullscreenChange;
+    fs.requestFullscreen();     // triggered by gesture
+    // log: fullscreenchange event triggered
+    // log: fullscreenchange event triggered
+    fs.removeListener('fullscreenchange', onFullscreenChange);
+    fs.exitFullscreen();
+    // log: fullscreenchange event triggered
+}
 ```
 
 
