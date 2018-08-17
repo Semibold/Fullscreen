@@ -155,7 +155,7 @@ export class Fullscreen {
                     writable: true,
                     enumerable: true,
                     configurable: true,
-                    value: (e: Event) => e.target === this.ele && listener.handleEvent.call(e.currentTarget, e)
+                    value: (e: Event) => e.target === this.ele && listener.handleEvent.call(listener, e)
                 }
             });
         }
