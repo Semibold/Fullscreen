@@ -2,14 +2,14 @@
 
 > JavaScript Fullscreen API. Support different frames(documents). Just for browser.
 
-[Navigate to 1.x docs](https://github.com/Aqours/Fullscreen/blob/1.5.3/README.md)
+[Navigate to 1.x docs](https://github.com/Semibold/Fullscreen/blob/1.5.3/README.md)
 
 
 ## Install
 
 > Source code is written by TypeScript.
 
-`$ npm i @aqours/fullscreen`
+`$ npm i @semibold/fullscreen`
 
 ## Usage
 
@@ -18,10 +18,10 @@
 // <script src="./dist/release/fullscreen.js"></script>
 
 // NodeJS Module
-const {Fullscreen} = require('@aqours/fullscreen');
+const {Fullscreen} = require('@semibold/fullscreen');
 
 // ES-next Module
-import {Fullscreen} from '@aqours/fullscreen';
+import {Fullscreen} from '@semibold/fullscreen';
 ```
 
 

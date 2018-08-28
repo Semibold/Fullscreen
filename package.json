@@ -1,5 +1,5 @@
 {
-  "name": "@aqours/fullscreen",
+  "name": "@semibold/fullscreen",
   "version": "2.0.2",
   "description": "JavaScript Fullscreen API. Support different frames(documents)",
   "main": "dist/release/fullscreen.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Aqours/Fullscreen.git"
+    "url": "git+https://github.com/Semibold/Fullscreen.git"
   },
   "keywords": [
     "fullscreen",
@@ -23,9 +23,9 @@
   "author": "Aqours",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Aqours/Fullscreen/issues"
+    "url": "https://github.com/Semibold/Fullscreen/issues"
   },
-  "homepage": "https://github.com/Aqours/Fullscreen#readme",
+  "homepage": "https://github.com/Semibold/Fullscreen#readme",
   "engines": {
     "node": ">=8.9.0"
   },
