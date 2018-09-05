@@ -3,7 +3,6 @@
   "compilerOptions": {
     "sourceMap": true,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
@@ -16,16 +15,8 @@
     "outDir": "./dist/out-tsc",
     "moduleResolution": "node",
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "dom",
-      "scripthost",
-      "esnext"
-    ]
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["dom", "scripthost", "esnext"]
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

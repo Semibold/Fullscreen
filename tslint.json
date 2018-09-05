@@ -1,33 +1,17 @@
 {
   "linterOptions": {
-    "exclude": [
-      "node_modules/**",
-      "demo/**"
-    ]
+    "exclude": ["node_modules/**", "demo/**"]
   },
   "rules": {
     "member-ordering": [
       true,
       {
-        "order": [
-          "static-field",
-          "instance-field",
-          "constructor",
-          "static-method",
-          "instance-method"
-        ]
+        "order": ["static-field", "instance-field", "constructor", "static-method", "instance-method"]
       }
     ],
-    "no-inferrable-types": [
-      true,
-      "ignore-params",
-      "ignore-properties"
-    ],
+    "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
     "no-internal-module": true,
-    "no-namespace": [
-      true,
-      "allow-declarations"
-    ],
+    "no-namespace": [true, "allow-declarations"],
     "no-non-null-assertion": true,
     "typedef": true,
     "unified-signatures": true,
@@ -46,25 +30,17 @@
     "no-this-assignment": [
       true,
       {
-        "allowed-names": [
-          "^that$"
-        ],
+        "allowed-names": ["^that$"],
         "allow-destructuring": true
       }
     ],
     "no-unsafe-finally": true,
     "no-var-keyword": true,
     "radix": true,
-    "triple-equals": [
-      true,
-      "allow-null-check"
-    ],
+    "triple-equals": [true, "allow-null-check"],
     "use-isnan": true,
     "deprecation": true,
-    "max-file-line-count": [
-      true,
-      2000
-    ],
+    "max-file-line-count": [true, 2000],
     "no-duplicate-imports": true,
     "no-require-imports": true,
     "callable-types": true,
@@ -72,14 +48,8 @@
     "interface-over-type-literal": true,
     "new-parens": true,
     "no-boolean-literal-compare": true,
-    "no-consecutive-blank-lines": [
-      true,
-      2
-    ],
+    "no-consecutive-blank-lines": [true, 2],
     "number-literal-format": true,
-    "variable-name": [
-      true,
-      "check-format"
-    ]
+    "variable-name": [true, "check-format"]
   }
 }

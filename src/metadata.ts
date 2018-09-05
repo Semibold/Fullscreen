@@ -1,9 +1,9 @@
 interface ProjectMetadata {
-    mode: "none" | "development" | "production";
     name: string;
-    gitHash: string;
     version: string;
-    lastModified: string;
+    envMode: "none" | "development" | "production";
+    gitHash: string;
+    lastCompiled: string;
 }
 
 // @ts-ignore (from webpack.DefinePlugin)

@@ -1,8 +1,10 @@
 const path = require("path");
 const rimraf = require("rimraf");
 const webpack = require("webpack");
-const EventHooksPlugin = require("event-hooks-webpack-plugin");
 const git = require("git-rev-sync");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const EventHooksPlugin = require("event-hooks-webpack-plugin");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 const manifest = require("./package.json");
 
@@ -13,26 +15,23 @@ const releasePath = path.resolve(__dirname, "dist/release");
  * @desc Config
  */
 module.exports = function(env = {}, argv = {}) {
-    env.mode = argv.mode || env.mode || "production";
-    env.lastModified = new Date().toISOString();
-
-    switch (env.mode) {
-        case "production":
-            env.devtool = "source-map";
-            env.outputPath = releasePath;
-            break;
-        case "development":
-            env.devtool = "cheap-module-eval-source-map";
-            env.outputPath = webpackPath;
-            break;
-        case "none":
-        default:
-            env.devtool = false;
-            env.outputPath = webpackPath;
-            break;
+    /**
+     * @param {string} key
+     * @param {*} [defArgument]
+     * @return {*}
+     */
+    function getArgument(key, defArgument) {
+        if (argv[key] != null) return argv[key];
+        if (env[key] != null) return env[key];
+        return defArgument;
     }
 
-    console.log(`webpack mode: ${env.mode}, git-commit hash: ${git.short()}`);
+    env.lastCompiled = new Date().toISOString();
+    env.mode = getArgument("mode", "production");
+    env.devtool = getArgument("devtool", false);
+    env.outputPath = env.mode === "production" ? releasePath : webpackPath;
+
+    console.log(`webpack mode: ${env.mode}, git-commit hash: ${git.short()}, current branch: ${git.branch()}`);
 
     return {
         mode: env.mode,
@@ -67,11 +66,11 @@ module.exports = function(env = {}, argv = {}) {
             new webpack.ProgressPlugin(),
             new webpack.DefinePlugin({
                 __X_METADATA__: JSON.stringify({
-                    mode: env.mode,
                     name: manifest.name,
                     version: manifest.version,
+                    envMode: env.mode,
                     gitHash: git.short(),
-                    lastModified: env.lastModified
+                    lastCompiled: env.lastCompiled
                 })
             }),
             new EventHooksPlugin({
@@ -79,8 +78,33 @@ module.exports = function(env = {}, argv = {}) {
                     rimraf.sync(webpackPath);
                     rimraf.sync(releasePath);
                 }
+            }),
+            new BundleAnalyzerPlugin({
+                analyzerMode: env.mode === "production" ? "static" : "disabled",
+                openAnalyzer: false
             })
         ],
+        optimization: {
+            minimizer: [
+                new UglifyJsPlugin({
+                    sourceMap: Boolean(env.devtool),
+                    extractComments: false,
+                    uglifyOptions: {
+                        compress: {
+                            drop_console: false,
+                            drop_debugger: true
+                        },
+                        output: {
+                            /**
+                             * @desc escape Unicode characters in strings and regexps
+                             *       (affects directives with non-ascii characters becoming invalid)
+                             */
+                            ascii_only: false
+                        }
+                    }
+                })
+            ]
+        },
         node: false,
         performance: {
             hints: false
