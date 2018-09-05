@@ -1,5 +1,7 @@
 # Fullscreen
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Semibold/Fullscreen.svg)](https://greenkeeper.io/)
+
 > JavaScript Fullscreen API. Support different frames(documents). Just for browser.
 
 [Navigate to 1.x docs](https://github.com/Semibold/Fullscreen/blob/1.5.3/README.md)
