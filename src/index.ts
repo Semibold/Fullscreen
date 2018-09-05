@@ -165,6 +165,16 @@ export class Fullscreen {
         listener: EventListenerOrEventListenerObject,
         pop: boolean = false
     ): EventListenerOrEventListenerObject {
+        if (typeof listener === "function") {
+            // EventListener
+        } else {
+            if (listener && typeof listener.handleEvent === "function") {
+                // EventListenerObject
+            } else {
+                // Invalid
+                return listener;
+            }
+        }
         const i = this.originListeners.indexOf(listener);
         if (i === -1) {
             const wrappedListener = this.generateWrappedListener(listener);
