@@ -63,7 +63,9 @@ module.exports = function(env = {}, argv = {}) {
             extensions: [".tsx", ".ts", ".jsx", ".js"]
         },
         plugins: [
-            new webpack.ProgressPlugin(),
+            new webpack.ProgressPlugin((percentage, message) => {
+                console.log(`${(percentage * 100).toFixed()}% ${message}`);
+            }),
             new webpack.DefinePlugin({
                 __X_METADATA__: JSON.stringify({
                     name: manifest.name,
