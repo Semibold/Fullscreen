@@ -36,7 +36,7 @@ module.exports = function(env = {}, argv = {}) {
     return {
         mode: env.mode,
         entry: {
-            fullscreen: "./src/index.ts"
+            fullscreen: "./src/index.ts",
         },
         devtool: env.devtool,
         module: {
@@ -47,44 +47,42 @@ module.exports = function(env = {}, argv = {}) {
                         loader: "ts-loader",
                         options: {
                             compilerOptions: {
-                                module: "esnext"
-                            }
-                        }
-                    }
-                }
-            ]
+                                module: "esnext",
+                            },
+                        },
+                    },
+                },
+            ],
         },
         output: {
             path: env.outputPath,
             filename: "[name].js",
-            libraryTarget: "umd"
+            libraryTarget: "umd",
         },
         resolve: {
-            extensions: [".tsx", ".ts", ".jsx", ".js"]
+            extensions: [".tsx", ".ts", ".jsx", ".js"],
         },
         plugins: [
-            new webpack.ProgressPlugin((percentage, message) => {
-                console.log(`${(percentage * 100).toFixed()}% ${message}`);
-            }),
+            new webpack.ProgressPlugin(),
             new webpack.DefinePlugin({
                 __X_METADATA__: JSON.stringify({
                     name: manifest.name,
                     version: manifest.version,
                     envMode: env.mode,
                     gitHash: git.short(),
-                    lastCompiled: env.lastCompiled
-                })
+                    lastCompiled: env.lastCompiled,
+                }),
             }),
             new EventHooksPlugin({
                 environment: function() {
                     rimraf.sync(webpackPath);
                     rimraf.sync(releasePath);
-                }
+                },
             }),
             new BundleAnalyzerPlugin({
                 analyzerMode: env.mode === "production" ? "static" : "disabled",
-                openAnalyzer: false
-            })
+                openAnalyzer: false,
+            }),
         ],
         optimization: {
             minimizer: [
@@ -94,22 +92,22 @@ module.exports = function(env = {}, argv = {}) {
                     uglifyOptions: {
                         compress: {
                             drop_console: false,
-                            drop_debugger: true
+                            drop_debugger: true,
                         },
                         output: {
                             /**
                              * @desc escape Unicode characters in strings and regexps
                              *       (affects directives with non-ascii characters becoming invalid)
                              */
-                            ascii_only: false
-                        }
-                    }
-                })
-            ]
+                            ascii_only: false,
+                        },
+                    },
+                }),
+            ],
         },
         node: false,
         performance: {
-            hints: false
-        }
+            hints: false,
+        },
     };
 };

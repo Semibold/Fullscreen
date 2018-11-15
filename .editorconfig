@@ -3,10 +3,15 @@
 # top-most EditorConfig file
 root = true
 
+# Option for setting a maximum length for each line
+# Supported By A Limited Number of Editors
+# https://github.com/editorconfig/editorconfig/wiki/EditorConfig-Properties#supported-by-a-limited-number-of-editors
+[*]
+max_line_length = 120
+
 # Unix-style newlines with a newline ending every file
-# Use git.core.crlf instead
-# [*]
-# end_of_line = lf
+[*]
+end_of_line = lf
 
 # Matches multiple files with brace expansion notation
 # Set default charset
@@ -20,5 +25,10 @@ indent_size = 4
 
 # Matches the exact files
 [*.{json,yml}]
+indent_style = space
+indent_size = 2
+
+# Configration files
+[.*]
 indent_style = space
 indent_size = 2

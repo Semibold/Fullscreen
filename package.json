@@ -5,10 +5,9 @@
   "browser": "dist/release/fullscreen.js",
   "types": "src/index.ts",
   "scripts": {
-    "build": "npm run tslint && webpack --mode=production --devtool=source-map",
+    "build": "webpack --mode=production --devtool=source-map",
     "start": "webpack -w --mode=development --devtool=cheap-module-eval-source-map",
     "tslint": "tslint -p ./ \"./**/*.ts\" \"./**/*.tsx\"",
-    "pretty": "prettier --write \"./{docs,src,test,types}/**/*.{js,jsx,ts,tsx,css,less,json,md}\"",
     "version": "npm run build && git add -A dist"
   },
   "repository": {
@@ -34,23 +33,22 @@
       "pre-push": "npm run tslint"
     }
   },
-  "prettier": {
-    "printWidth": 120
-  },
   "devDependencies": {
     "@types/node": "10.9.4",
-    "event-hooks-webpack-plugin": "2.1.0",
+    "event-hooks-webpack-plugin": "2.1.1",
     "git-rev-sync": "1.12.0",
-    "husky": "1.0.0-rc.13",
-    "prettier": "1.14.2",
-    "pretty-quick": "1.6.0",
+    "husky": "1.1.4",
+    "prettier": "1.15.2",
+    "pretty-quick": "1.8.0",
     "rimraf": "2.6.2",
-    "ts-loader": "5.0.0",
+    "ts-loader": "5.3.0",
     "tslint": "5.11.0",
-    "typescript": "3.0.3",
-    "uglifyjs-webpack-plugin": "1.3.0",
-    "webpack": "4.16.3",
-    "webpack-bundle-analyzer": "2.13.1",
-    "webpack-cli": "3.1.0"
+    "tslint-config-prettier": "1.16.0",
+    "tslint-plugin-prettier": "2.0.1",
+    "typescript": "3.1.6",
+    "uglifyjs-webpack-plugin": "2.0.1",
+    "webpack": "4.25.1",
+    "webpack-bundle-analyzer": "3.0.3",
+    "webpack-cli": "3.1.2"
   }
 }
