@@ -114,8 +114,7 @@ export class Fullscreen {
         if (
             typeof maybePromise === "function" &&
             typeof maybePromise.resolve === "function" &&
-            typeof maybePromise.reject === "function" &&
-            Object.prototype.toString.call(maybePromise.resolve()) === "[object Promise]"
+            typeof maybePromise.reject === "function"
         ) {
             return maybePromise;
         } else {
@@ -153,7 +152,7 @@ export class Fullscreen {
                     this.addListener("fullscreenerror", onerror);
                 });
                 const p2 = this.ele[this.cfs.requestFullscreen](options);
-                if (Object.prototype.toString.call(p2) === "[object Promise]") {
+                if (p2 && typeof p2.then === "function" && typeof p2.catch === "function") {
                     return p2;
                 } else {
                     return p1;
@@ -195,7 +194,7 @@ export class Fullscreen {
                         this.addListener("fullscreenerror", onerror);
                     });
                     const p2 = this.doc[this.cfs.exitFullscreen]();
-                    if (Object.prototype.toString.call(p2) === "[object Promise]") {
+                    if (p2 && typeof p2.then === "function" && typeof p2.catch === "function") {
                         return p2;
                     } else {
                         return p1;
