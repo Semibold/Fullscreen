@@ -114,7 +114,8 @@ export class Fullscreen {
         if (
             typeof maybePromise === "function" &&
             typeof maybePromise.resolve === "function" &&
-            typeof maybePromise.reject === "function"
+            typeof maybePromise.reject === "function" &&
+            Object.prototype.toString.call(maybePromise.resolve()) === "[object Promise]"
         ) {
             return maybePromise;
         } else {
