@@ -202,6 +202,10 @@ export class Fullscreen {
         }
     }
 
+    /**
+     * @desc Modern APIs
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/onfullscreenchange#Browser_compatibility
+     */
     get onfullscreenchange() {
         if (this.cfs) {
             return this.ele[this.cfs.onfullscreenchange];
@@ -210,12 +214,20 @@ export class Fullscreen {
         }
     }
 
+    /**
+     * @desc Modern APIs
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/onfullscreenchange#Browser_compatibility
+     */
     set onfullscreenchange(callback: ((this: Element, ev: Event) => any) | null) {
         if (this.cfs) {
             this.ele[this.cfs.onfullscreenchange] = callback;
         }
     }
 
+    /**
+     * @desc Modern APIs
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/onfullscreenerror#Browser_compatibility
+     */
     get onfullscreenerror() {
         if (this.cfs) {
             return this.ele[this.cfs.onfullscreenerror];
@@ -224,12 +236,21 @@ export class Fullscreen {
         }
     }
 
+    /**
+     * @desc Modern APIs
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/onfullscreenerror#Browser_compatibility
+     */
     set onfullscreenerror(callback: ((this: Element, ev: Event) => any) | null) {
         if (this.cfs) {
             this.ele[this.cfs.onfullscreenerror] = callback;
         }
     }
 
+    /**
+     * @desc Modern APIs
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/onfullscreenchange#Browser_compatibility
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/onfullscreenerror#Browser_compatibility
+     */
     addEventListener(
         type: FullscreenEventType,
         listener: EventListenerOrEventListenerObject,
@@ -242,6 +263,11 @@ export class Fullscreen {
         }
     }
 
+    /**
+     * @desc Modern APIs
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/onfullscreenchange#Browser_compatibility
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/onfullscreenerror#Browser_compatibility
+     */
     removeEventListener(
         type: FullscreenEventType,
         listener: EventListenerOrEventListenerObject,
