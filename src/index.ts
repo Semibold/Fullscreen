@@ -132,6 +132,8 @@ export class Fullscreen {
                         if (this.fullscreenElement === this.currentElement) {
                             this.removeEventListener("fullscreenchange", onchange, true);
                             this.removeEventListener("fullscreenerror", onerror, true);
+                            this.removeListener("fullscreenchange", onchange);
+                            this.removeListener("fullscreenerror", onerror);
                             resolve();
                         }
                     };
@@ -139,11 +141,15 @@ export class Fullscreen {
                         if (this.fullscreenElement !== this.currentElement) {
                             this.removeEventListener("fullscreenchange", onchange, true);
                             this.removeEventListener("fullscreenerror", onerror, true);
+                            this.removeListener("fullscreenchange", onchange);
+                            this.removeListener("fullscreenerror", onerror);
                             reject(/* new Error(message)? */);
                         }
                     };
                     this.addEventListener("fullscreenchange", onchange, true);
                     this.addEventListener("fullscreenerror", onerror, true);
+                    this.addListener("fullscreenchange", onchange);
+                    this.addListener("fullscreenerror", onerror);
                 });
                 const p2 = this.ele[this.cfs.requestFullscreen](options);
                 if (Object.prototype.toString.call(p2) === "[object Promise]") {
@@ -168,6 +174,8 @@ export class Fullscreen {
                             if (this.fullscreenElement !== this.currentElement) {
                                 this.removeEventListener("fullscreenchange", onchange, true);
                                 this.removeEventListener("fullscreenerror", onerror, true);
+                                this.removeListener("fullscreenchange", onchange);
+                                this.removeListener("fullscreenerror", onerror);
                                 resolve();
                             }
                         };
@@ -175,11 +183,15 @@ export class Fullscreen {
                             if (this.fullscreenElement === this.currentElement) {
                                 this.removeEventListener("fullscreenchange", onchange, true);
                                 this.removeEventListener("fullscreenerror", onerror, true);
+                                this.removeListener("fullscreenchange", onchange);
+                                this.removeListener("fullscreenerror", onerror);
                                 reject(/* new Error(message)? */);
                             }
                         };
                         this.addEventListener("fullscreenchange", onchange, true);
                         this.addEventListener("fullscreenerror", onerror, true);
+                        this.addListener("fullscreenchange", onchange);
+                        this.addListener("fullscreenerror", onerror);
                     });
                     const p2 = this.doc[this.cfs.exitFullscreen]();
                     if (Object.prototype.toString.call(p2) === "[object Promise]") {
@@ -276,6 +288,36 @@ export class Fullscreen {
         if (this.cfs) {
             if (type === "fullscreenchange" || type === "fullscreenerror") {
                 this.ele.removeEventListener(this.cfs[type], listener, options);
+            }
+        }
+    }
+
+    /**
+     * @deprecated Use returned promise if BrowsingContextPromise is available.
+     */
+    addListener(
+        type: FullscreenEventType,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ) {
+        if (this.cfs) {
+            if (type === "fullscreenchange" || type === "fullscreenerror") {
+                this.doc.addEventListener(this.cfs[type], listener, options);
+            }
+        }
+    }
+
+    /**
+     * @deprecated Use returned promise if BrowsingContextPromise is available.
+     */
+    removeListener(
+        type: FullscreenEventType,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ) {
+        if (this.cfs) {
+            if (type === "fullscreenchange" || type === "fullscreenerror") {
+                this.doc.removeEventListener(this.cfs[type], listener, options);
             }
         }
     }
