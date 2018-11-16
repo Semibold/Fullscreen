@@ -1,8 +1,8 @@
 # Fullscreen
 
-> JavaScript Fullscreen API. Support different frames(documents). Just for browser.
+> [Changelog](changelog.md)
 
-[Navigate to 1.x docs](https://github.com/Semibold/Fullscreen/blob/1.5.3/README.md)
+> Modern JavaScript Fullscreen API. Just for browser.
 
 ## Install
 
@@ -31,7 +31,7 @@ More Information: [Can I Use Fullscreen?](http://caniuse.com/#search=fullscreen)
 
 ```js
 /**
- * @param {Element} [target = document.documentElement] - target element
+ * @param {Element} target - target element
  */
 const fs = new Fullscreen(target);
 
@@ -45,6 +45,16 @@ const fs = new Fullscreen(target);
  * @return {Metadata}
  */
 Fullscreen.metadata;
+
+/**
+ * @return {Element} - get current target element
+ */
+fs.currentElement;
+
+/**
+ * @return {FullscreenAPIMapping | null}
+ */
+fs.fullscreenMapping;
 
 /**
  * @desc The `fullscreenEnabled` attribute tells you whether or not the document is
@@ -64,40 +74,49 @@ fs.fullscreenEnabled;
 fs.fullscreenElement;
 
 /**
+ * @desc Return BrowsingContextPromise
+ *
+ * @return {PromiseConstructor | null}
+ */
+fs.getBrowsingContextPromise();
+
+/**
  * @desc The `fs.requestFullscreen()` method issues an asynchronous request to make
  *       the target be displayed full-screen.
+ * @desc It will always return promise if BrowsingContextPromise is available.
  *
- * @return {Promise<void>|void}
+ * @param {Object} [options]
+ * @param {"auto" | "show" | "hide"} [options.navigationUI]
+ *
+ * @return {Promise<void> | void}
  */
-fs.requestFullscreen();
+fs.requestFullscreen(options);
 
 /**
- * @desc Be Careful: It's not equal to `docuemnt.exitFullscreen();` which equal to
- *       `document[fs.fullscreenMapping.exitFullscreen]();` actually. The method does
- *       nothing if `document.fullscreenElement !== target`.
  * @desc The `fs.exitFullscreen()` is a method that takes the target out of
  *       full-screen mode.
+ * @desc It will always return promise if BrowsingContextPromise is available.
+ *
+ * @param {boolean} [isBrowsingContext]
+ * @desc `fs.exitFullscreen()` does nothing if `document.fullscreenElement !== target`.
+ * @desc `fs.exitFullscreen(true)` equal to `docuemnt.exitFullscreen()`.
+ *
+ * @return {Promise<void> | void}
  */
-fs.exitFullscreen();
-
-/**
- * @desc Toggle target in/out of full-screen mode.
- */
-fs.toggleFullscreen();
+fs.exitFullscreen(isBrowsingContext);
 
 /**
  * @desc Needn't to add prefix to the `type`
- * @desc The `fullscreenchange` event is fired when the target is switched to/out-of
+ * @desc The `fullscreenchange` event is fired when the document is switched to/out-of
  *       fullscreen mode.
- * @desc The fullscreenerror event is fired when the target cannot switch to fullscreen
+ * @desc The fullscreenerror event is fired when the document cannot switch to fullscreen
  *       mode.
- * @desc Use `document.addEventListener(fs.fullscreenMapping.fullscreenchange, listener, options)`
- *       or `document[fs.fullscreenMapping.onfullscreenchange] = function (e) {};` if
- *       you want to capture fullscreenchange/fullscreenerror of all elements.
  *
  * @param {FullscreenEventType} type - "fullscreenchange" | "fullscreenerror"
  * @param {EventListenerOrEventListenerObject} listener
  * @param {boolean | AddEventListenerOptions} [options]
+ *
+ * @deprecated Use returned promise if BrowsingContextPromise is available.
  */
 fs.addListener(type, listener, options);
 
@@ -108,18 +127,10 @@ fs.addListener(type, listener, options);
  * @param {FullscreenEventType} type - "fullscreenchange" | "fullscreenerror"
  * @param {EventListenerOrEventListenerObject} listener
  * @param {boolean | EventListenerOptions} [options]
+ *
+ * @deprecated Use returned promise if BrowsingContextPromise is available.
  */
 fs.removeListener(type, listener, options);
-
-/**
- * @return {FullscreenAPIMapping | null}
- */
-fs.fullscreenMapping;
-
-/**
- * @return {Element} - get current target element
- */
-fs.currentElement;
 ```
 
 ## Example
@@ -132,22 +143,53 @@ function onFullscreenChange(e) {
 }
 
 if (fs.fullscreenEnabled) {
-    fs.addListener("fullscreenchange", onFullscreenChange);
-    fs.requestFullscreen(); // triggered by gesture
-    // log: fullscreenchange event triggered
-    fs.removeListener("fullscreenchange", onFullscreenChange);
-    fs.exitFullscreen();
+    console.log(fs.currentElement === document.body); // log: true
 
     fs.addListener("fullscreenchange", onFullscreenChange);
-    document[fs.fullscreenMapping.onfullscreenchange] = onFullscreenChange;
     fs.requestFullscreen(); // triggered by gesture
-    // log: fullscreenchange event triggered
-    // log: fullscreenchange event triggered
-    fs.removeListener("fullscreenchange", onFullscreenChange);
-    fs.exitFullscreen();
-    // log: fullscreenchange event triggered
+
+    if (fs.getBrowsingContextPromise()) {
+        fs.exitFullscreen()
+            .then(() => {
+                console.log("Everything is ok.");
+            })
+            .catch(err => {
+                if (err) {
+                    console.warn(err);
+                } else {
+                    alert("Cannot exit fullscreen mode.");
+                }
+            });
+    }
 }
 ```
+
+## Non-public API
+
+```js
+/**
+ * @desc Be Careful: these methods only support a handful of the latest browsers.
+ *
+ * @desc Equal to `Element.onfullscreenchange` and `Element.onfullscreenerror`
+ * @desc Equal to `Element.addEventListener` and `Element.removeEventListener`
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/onfullscreenchange
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/onfullscreenerror
+ */
+fs.onfullscreenchange;
+fs.onfullscreenerror;
+fs.addEventListener(type, listener, options);
+fs.removeEventListener(type, listener, options);
+```
+
+## FAQ
+
+-   Should I use deprecated method(`fs.addListener/fs.removeListener`)?
+    -   You should use these method if BrowsingContextPromise is unavailable .
+-   Why remove `fs.toggleFullscreen` method?
+    -   Because this method isn't reliable if browser support options of `fs.requestFullscreen(options)`.
+-   Can I use non-public methods(`fs.addEventListener/fs.removeEventListener/...`)?
+    -   It depends on you. These methods only support a handful of the latest browsers.
 
 ## Reference
 
