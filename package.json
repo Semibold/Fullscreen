@@ -1,6 +1,6 @@
 {
   "name": "@semibold/fullscreen",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "JavaScript Fullscreen API. Support different frames(documents)",
   "browser": "dist/release/fullscreen.js",
   "types": "src/index.ts",
