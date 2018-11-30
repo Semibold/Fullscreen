@@ -171,7 +171,7 @@ export class Fullscreen {
                 if (isBrowsingContext || this.fullscreenElement === this.ele) {
                     const p1: Promise<void> = new Promise((resolve, reject) => {
                         const onchange = (e: Event) => {
-                            if (this.fullscreenElement !== this.currentElement) {
+                            if (isBrowsingContext || this.fullscreenElement !== this.currentElement) {
                                 this.removeEventListener("fullscreenchange", onchange, true);
                                 this.removeEventListener("fullscreenerror", onerror, true);
                                 this.removeListener("fullscreenchange", onchange);
@@ -180,7 +180,7 @@ export class Fullscreen {
                             }
                         };
                         const onerror = (e: Event) => {
-                            if (this.fullscreenElement === this.currentElement) {
+                            if (isBrowsingContext || this.fullscreenElement === this.currentElement) {
                                 this.removeEventListener("fullscreenchange", onchange, true);
                                 this.removeEventListener("fullscreenerror", onerror, true);
                                 this.removeListener("fullscreenchange", onchange);
