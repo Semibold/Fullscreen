@@ -1,23 +1,21 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "forceConsistentCasingInFileNames": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "downlevelIteration": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": false,
+    "emitDecoratorMetadata": false,
     "jsx": "react",
     "outDir": "./dist/out-tsc",
-    "moduleResolution": "node",
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "moduleResolution": "node",
     "lib": [
       "dom",
       "scripthost",
@@ -25,9 +23,7 @@
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "test/**/*.ts",
-    "types/**/*.ts"
+    "**/*"
   ],
   "exclude": [
     "node_modules"

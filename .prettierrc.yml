@@ -1,7 +1,2 @@
-# Use `.editorconfig` instead.
-# tabWidth: 4
-# printWidth: 120
-
-# Explicit specifiy `singleQuote` value
 singleQuote: false
 trailingComma: all

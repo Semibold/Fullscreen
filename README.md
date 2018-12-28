@@ -39,8 +39,8 @@ const fs = new Fullscreen(target);
  * @typedef {Object} Metadata
  * @property {string} name
  * @property {string} version
- * @property {string} envMode
- * @property {string} gitHash
+ * @property {string} revision
+ * @property {boolean} production
  * @property {string} lastCompiled
  * @return {Metadata}
  */

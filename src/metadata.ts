@@ -1,10 +1,10 @@
 interface ProjectMetadata {
-    name: string;
-    version: string;
-    envMode: "none" | "development" | "production";
-    gitHash: string;
-    lastCompiled: string;
+    readonly name: string;
+    readonly version: string;
+    readonly revision: string;
+    readonly production: boolean;
+    readonly lastCompiled: string;
 }
 
 // @ts-ignore (from webpack.DefinePlugin)
-export const metadata: ProjectMetadata = __X_METADATA__;
+export const metadata: ProjectMetadata = Object.freeze(__X_METADATA__);
